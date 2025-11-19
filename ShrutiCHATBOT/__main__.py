@@ -2,7 +2,6 @@ import sys
 import asyncio
 import importlib
 import logging
-import threading
 import config
 from ShrutiCHATBOT import ID_CHATBOT
 from pyrogram import idle
@@ -10,8 +9,8 @@ from pyrogram.types import BotCommand
 from config import OWNER_ID
 from ShrutiCHATBOT import LOGGER, ShrutiCHATBOT, userbot, load_clone_owners
 from ShrutiCHATBOT.modules import ALL_MODULES
-#from ShrutiCHATBOT.modules.Clone import restart_bots
-#from ShrutiCHATBOT.modules.Id_Clone import restart_idchatbots
+# from ShrutiCHATBOT.modules.Clone import restart_bots
+# from ShrutiCHATBOT.modules.Id_Clone import restart_idchatbots
 
 from colorama import Fore, Style, init
 init(autoreset=True)
@@ -47,8 +46,10 @@ async def anony_boot():
         except Exception:
             LOGGER.warning(f"⚡ Please start @{ShrutiCHATBOT.username} from the owner account.")
 
-        asyncio.create_task(restart_bots())
-        asyncio.create_task(restart_idchatbots())
+        # Uncomment these when you have the functions imported
+        # asyncio.create_task(restart_bots())
+        # asyncio.create_task(restart_idchatbots())
+        
         await load_clone_owners()
 
         if config.STRING1:
@@ -101,5 +102,5 @@ async def anony_boot():
 
 # 🚀 Start Point
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(anony_boot())
+    asyncio.run(anony_boot())
     LOGGER.info("🛑 Stopping ShrutiCHATBOT Bot...")
