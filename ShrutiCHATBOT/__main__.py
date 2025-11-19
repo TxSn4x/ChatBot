@@ -1,4 +1,3 @@
-import sys
 import asyncio
 import importlib
 import logging
@@ -9,8 +8,8 @@ from pyrogram.types import BotCommand
 from config import OWNER_ID
 from ShrutiCHATBOT import LOGGER, ShrutiCHATBOT, userbot, load_clone_owners
 from ShrutiCHATBOT.modules import ALL_MODULES
-# from ShrutiCHATBOT.modules.Clone import restart_bots
-# from ShrutiCHATBOT.modules.Id_Clone import restart_idchatbots
+from ShrutiCHATBOT.modules.Clone import restart_bots
+from ShrutiCHATBOT.modules.Id_Clone import restart_idchatbots
 
 from colorama import Fore, Style, init
 init(autoreset=True)
@@ -46,9 +45,8 @@ async def anony_boot():
         except Exception:
             LOGGER.warning(f"⚡ Please start @{ShrutiCHATBOT.username} from the owner account.")
 
-        # Uncomment these when you have the functions imported
-        # asyncio.create_task(restart_bots())
-        # asyncio.create_task(restart_idchatbots())
+        asyncio.create_task(restart_bots())
+        asyncio.create_task(restart_idchatbots())
         
         await load_clone_owners()
 
@@ -65,12 +63,10 @@ async def anony_boot():
     except Exception as ex:
         LOGGER.critical(f"🔥 Bot failed to start: {ex}")
 
-    # ✅ Module Loader
     for all_module in ALL_MODULES:
         importlib.import_module("ShrutiCHATBOT.modules." + all_module)
         LOGGER.info(f"📦 Loaded Module: {Fore.CYAN}{all_module}{Style.RESET_ALL}")
 
-    # ✅ Bot Commands
     try:
         await ShrutiCHATBOT.set_bot_commands(
             commands=[
@@ -100,7 +96,6 @@ async def anony_boot():
     await idle()
 
 
-# 🚀 Start Point
 if __name__ == "__main__":
     asyncio.run(anony_boot())
     LOGGER.info("🛑 Stopping ShrutiCHATBOT Bot...")
